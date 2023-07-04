@@ -1,0 +1,4 @@
+.metals/
+.vscode/
+metals.log
+.DS_Store
