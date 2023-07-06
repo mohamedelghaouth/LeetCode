@@ -1,15 +1,14 @@
 package Java.solutions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-/*
- * Given two strings s and t, return true if t is an anagram of s, and false otherwise.
- * An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
- */
-public class ValidAnagrams {
+public class GroupAnagrams {
     private void addToMap(Map<String, Integer> m, String s) {
         Integer tmp = m.get(s);
         if(tmp == null) {
@@ -61,6 +60,26 @@ public class ValidAnagrams {
     public boolean isAnagram(String s, String t) {
         return areAnagram(wordToMap(s), wordToMap(t));
     }
+    
+    public List<List<String>> groupAnagrams(String[] strings) {
+        Map<String, List<String>> map = new HashMap<>();
+
+        Arrays.stream(strings).forEach(t -> {
+            if (!map.containsKey(t)) {
+                for (String key : map.keySet()) {
+                    if (isAnagram(key, t)) {
+                        map.get(key).add(t);
+                        return;
+                    }
+                }
+                map.put(t, new ArrayList<>(Arrays.asList(t)));
+            } else {
+                map.get(t).add(t);
+            }
+        });
+
+        return map.values().stream().collect(Collectors.toList());
+    }
 
     public String getSortedVersion(String word) {
         char[] chars = word.toCharArray();
@@ -72,8 +91,22 @@ public class ValidAnagrams {
      * anagrams words become the same when sorted: 
      * eat -> aet
      * tea -> aet
-     */ 
-     public boolean isAnagramBestSolution(String s, String t) {
-        return getSortedVersion(s).equals(getSortedVersion(t));
+     */
+
+    public List<List<String>> groupAnagramsSecondSolution(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        
+        for (String word : strs) {
+            String sortedWord = getSortedVersion(word);
+            
+            if (!map.containsKey(sortedWord)) {
+                map.put(sortedWord, new ArrayList<>());
+            }
+            
+            map.get(sortedWord).add(word);
+        }
+        
+        return new ArrayList<>(map.values());
     }
+
 }
