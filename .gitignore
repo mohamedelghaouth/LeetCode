@@ -2,3 +2,5 @@
 .vscode/
 metals.log
 .DS_Store
+*.iml
+*.xml
