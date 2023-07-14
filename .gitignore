@@ -5,3 +5,4 @@ metals.log
 *.iml
 *.xml
 out/
+.idea
