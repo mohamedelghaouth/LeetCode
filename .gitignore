@@ -6,3 +6,4 @@ metals.log
 *.xml
 out/
 .idea
+LeetCode.iml
