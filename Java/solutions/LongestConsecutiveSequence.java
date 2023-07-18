@@ -14,18 +14,16 @@ public class LongestConsecutiveSequence {
     static public Set<Integer> getSettOfElement(int[] nums) {
         Set<Integer> set = new HashSet<>();
 
-        for (int i: nums) {
-            set.add(i);
-        }
+        for (int i: nums) set.add(i);
+        
 
         return set;
     }
 
-    static public int getNextConsecutive(int i, Set<Integer> set) {
+    static public int getNextConsecutive(int start, Set<Integer> set) {
         int length = 1;
-        while(set.remove(++i)){
-            ++length;
-        }
+        while(set.remove(++start)) ++length;
+        
         return length;
     }
 

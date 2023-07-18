@@ -35,12 +35,9 @@ function encode(strs) {
 }
 
 function detectWord(start, str) {
-  let res = "";
   let worldLength = parseInt(str.charAt(start + 1));
-  let word = str.slice(start + 2, start + 2 + worldLength);
 
-  res += word;
-  return res;
+  return str.slice(start + 2, start + 2 + worldLength);
 }
 
 function decode(str) {
