@@ -1,50 +1,34 @@
 /** @format */
 
 /**
+ *
+ * Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+ *
  * @param {number} n
  * @return {string[]}
  */
 var generateParenthesis = function (n) {
-  let stack = ["()"];
+  let arr = [];
+  generate(n, 0, 0, arr, "");
 
-  for (let i = 1; i < n; i++) {
-    let length = stack.length;
-    for (let j = 0; j < length; j++) {
-      let tmp = stack.shift();
-      if (j != 0) stack.push("()" + tmp);
-      stack.push(tmp + "()");
-      stack.push("(" + tmp + ")");
-    }
-  }
-  return stack;
+  return arr;
 };
 
-// console.log(generateParenthesis(1));
-// console.log(generateParenthesis(2));
-// console.log(generateParenthesis(3));
-// console.log(generateParenthesis(4));
+function generate(n, op, cl, arr, cum) {
+  if (op === n && cl === n) {
+    arr.push(cum);
+    return;
+  }
 
-let expectedArray = [
-  "(((())))",
-  "((()()))",
-  "((())())",
-  "((()))()",
-  "(()(()))",
-  "(()()())",
-  "(()())()",
-  "(())(())",
-  "(())()()",
-  "()((()))",
-  "()(()())",
-  "()(())()",
-  "()()(())",
-  "()()()()",
-];
-let resultArray = generateParenthesis(4); // 14
-let map = new Map();
+  if (op < n) {
+    generate(n, op + 1, cl, arr, cum + "(");
+  }
 
-resultArray.forEach((element) => {
-  map.set(element, (map.get(element) || 0) + 1);
-});
+  if (cl < op) {
+    generate(n, op, cl + 1, arr, cum + ")");
+  }
+}
 
-console.log(map);
+let resultArray = generateParenthesis(3); // 14
+
+console.log(resultArray);
