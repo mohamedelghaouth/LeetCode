@@ -41,6 +41,28 @@ var longestConsecutive = function (nums) {
   return longestConsecutive;
 };
 
+function longestConsecutiveSecond(nums) {
+  if (nums.length == 0) return 0;
+
+  const set = new Set(nums);
+  let max = 0;
+
+  for (let n of set) {
+    if (!set.has(n - 1)) {
+      let c = n;
+      let l = 1;
+
+      while (set.has(c + 1)) {
+        ++c;
+        ++l;
+      }
+
+      max = Math.max(max, l);
+    }
+  }
+
+  return max;
+}
 //-------------------Test Cases----------------------------------------------
 
 let nums_1 = [100, 4, 200, 1, 3, 2];
